@@ -1,0 +1,24 @@
+
+# HTTP服务启动端口
+server:
+  port: 20000
+
+file-sync:
+  client:
+    path: C:\Users\26044\IdeaProjects\file-sync\sync-dir\client-1
+    interval: 3
+  server:
+    host: 127.0.0.1
+    port: 40000
+
+spring:
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
+
+netty:
+  client:
+    worker: 4
+  server:
+    host: 127.0.0.1
+    port: 40001
