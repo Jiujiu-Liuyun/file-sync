@@ -20,12 +20,14 @@ public class ServerDocDiffConsumer implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         new Thread(() -> {
-            try {
-                DocumentDiff diff = documentDiffBlockingQueue.take();
-                log.info("处理文档差异, diff: {}", diff);
-                clientDocManageService.handleDocDiff(diff);
-            } catch (Exception e) {
-                log.error("消费文档差异数据失败, {}", ExceptionUtils.getStackTrace(e));
+            while (true) {
+                try {
+                    DocumentDiff diff = documentDiffBlockingQueue.take();
+                    log.info("处理文档差异, diff: {}", diff);
+                    clientDocManageService.handleDocDiff(diff);
+                } catch (Exception e) {
+                    log.error("消费文档差异数据失败, {}", ExceptionUtils.getStackTrace(e));
+                }
             }
         }).start();
     }
