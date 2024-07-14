@@ -23,7 +23,7 @@ public class TestController {
     @ApiOperation("test")
     @Timer
     public String test() {
-        return "test success!!!";
+        return "test success!";
     }
 
     @GetMapping("/resolvePath")

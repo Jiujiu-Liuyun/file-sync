@@ -24,3 +24,8 @@ netty:
   timeout: 6000
   # 服务器主端口
   port: 40001
+
+spring:
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
