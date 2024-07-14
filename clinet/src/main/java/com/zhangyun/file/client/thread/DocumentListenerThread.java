@@ -36,6 +36,8 @@ public class DocumentListenerThread implements Runnable {
             Set<DocumentDiff> ignoreDocDiffSet = (Set<DocumentDiff>) SpringContextUtils.getBean("ignoreDocDiffSet");
             // 比较文件变动
             FileUtil.compareDocument(oldDocument, newDocument, documentDiffList, true, ignoreDocDiffSet);
+            // 重置内存文档树
+            config.setRootDocument(newDocument);
             if (CollectionUtils.isEmpty(documentDiffList)) {
                 return;
             }
@@ -43,8 +45,6 @@ public class DocumentListenerThread implements Runnable {
             // 上传文件变动
             TransferFileService transferFileService = SpringContextUtils.getBean(TransferFileService.class);
             documentDiffList.forEach(transferFileService::uploadDocumentDiffNetty);
-            // 重置内存文档树
-            config.setRootDocument(newDocument);
         } catch (Exception e) {
             log.error("文件变动监听任务执行失败, err: {}", ExceptionUtils.getStackTrace(e));
         }
