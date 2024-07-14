@@ -10,6 +10,7 @@ import com.zhangyun.file.common.uilt.GsonUtil;
 import com.zhangyun.file.common.uilt.SpringContextUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;
@@ -24,7 +25,6 @@ public class DocumentListenerThread implements Runnable {
     @Override
     public void run() {
         try {
-            log.info("本地文件扫描");
             Document newDocument = FileUtil.recursionPath(rootFile, rootFile.getAbsolutePath());
             List<DocumentDiff> documentDiffList = new ArrayList<>();
 
@@ -33,6 +33,9 @@ public class DocumentListenerThread implements Runnable {
             Document oldDocument = config.getRootDocument();
             // 比较文件变动
             FileUtil.compareDocument(oldDocument, newDocument, documentDiffList, true);
+            if (CollectionUtils.isEmpty(documentDiffList)) {
+                return;
+            }
             log.info("文件变动: {}", GsonUtil.toJsonString(documentDiffList));
             // 上传文件变动
             TransferFileService transferFileService = SpringContextUtils.getBean(TransferFileService.class);

@@ -34,7 +34,4 @@ public class ServerNettyService implements InitializingBean {
         }
     }
 
-    public void sendMessage(BaseMsg msg) {
-        channel.channel().writeAndFlush(msg);
-    }
 }

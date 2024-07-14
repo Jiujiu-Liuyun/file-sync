@@ -14,6 +14,6 @@ public class UploadDocDiffReq extends BaseMsg {
 
     @Override
     public int getMessageType() {
-        return 10;
+        return UPLOAD_DOCUMENT_DIFF_REQ;
     }
 }

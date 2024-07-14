@@ -14,14 +14,17 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
 
     @Resource
     private MessageCodecSharable messageCodecSharable;
-
     @Resource
     private UploadDocDiffReqHandler uploadDocDiffReqHandler;
+    @Resource
+    private SessionManageHandler sessionManageHandler;
+    @Resource
+    private GlobalExceptionHandler globalExceptionHandler;
+    @Resource
+    private DownloadFileReqHandler downloadFileReqHandler;
 
     /**
      * 初始化通道以及配置对应管道的处理器
-     * @param socketChannel
-     * @throws Exception
      */
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -29,6 +32,11 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
         pipeline.addLast(uploadDocDiffReqHandler);
+        pipeline.addLast(sessionManageHandler);
+        pipeline.addLast(downloadFileReqHandler);
+
+
+        pipeline.addLast(globalExceptionHandler);
     }
 }
 

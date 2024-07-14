@@ -13,11 +13,17 @@ import javax.annotation.Resource;
 public class ClientHandler extends ChannelInitializer<SocketChannel> {
     @Resource
     private MessageCodecSharable messageCodecSharable;
+    @Resource
+    private DownloadFileRespHandler downloadFileRespHandler;
+    @Resource
+    private GlobalExceptionHandler globalExceptionHandler;
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
+        pipeline.addLast(downloadFileRespHandler);
+        pipeline.addLast(globalExceptionHandler);
     }
 }

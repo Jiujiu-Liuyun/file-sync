@@ -28,6 +28,6 @@ public class BaseResp extends BaseMsg {
 
     @Override
     public int getMessageType() {
-        return 1;
+        return BASE_RESP;
     }
 }
