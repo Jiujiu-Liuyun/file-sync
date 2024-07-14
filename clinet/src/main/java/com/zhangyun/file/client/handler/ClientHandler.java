@@ -17,6 +17,8 @@ public class ClientHandler extends ChannelInitializer<SocketChannel> {
     private DownloadFileRespHandler downloadFileRespHandler;
     @Resource
     private GlobalExceptionHandler globalExceptionHandler;
+    @Resource
+    private NotifyDocDiffHandler notifyDocDiffHandler;
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -24,6 +26,7 @@ public class ClientHandler extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
         pipeline.addLast(downloadFileRespHandler);
+        pipeline.addLast(notifyDocDiffHandler);
         pipeline.addLast(globalExceptionHandler);
     }
 }

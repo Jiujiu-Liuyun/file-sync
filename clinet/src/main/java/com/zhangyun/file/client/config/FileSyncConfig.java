@@ -37,7 +37,7 @@ public class FileSyncConfig {
         return new ArrayBlockingQueue<>(500);
     }
 
-    @Bean
+    @Bean(name = "ignoreDocDiffSet")
     public Set<DocumentDiff> ignoreDocDiffSet() {
         return new HashSet<>();
     }

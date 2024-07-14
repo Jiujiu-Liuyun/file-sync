@@ -60,26 +60,37 @@ public class FileUtil {
         return document;
     }
 
-    public static void compareDocument(Document oldDocument, Document newDocument, List<DocumentDiff> documentDiffList, boolean isHeader) {
+    public static void compareDocument(Document oldDocument, Document newDocument, List<DocumentDiff> documentDiffList,
+                                       boolean isHeader, Set<DocumentDiff> ignoreDocDiffSet) {
         if (oldDocument == null && newDocument == null) {
             return;
         }
         DocumentDiff diff = getDocumentDiff(oldDocument, newDocument, isHeader);
         if (diff != null && diff.getDiffTypeEnum() != DocumentDiffTypeEnum.DELETE) {
-            documentDiffList.add(diff);
+            if (ignoreDocDiffSet.contains(diff)) {
+                log.info("文件变动为同步变动，无需记录，diff: {}", diff);
+                ignoreDocDiffSet.remove(diff);
+            } else {
+                documentDiffList.add(diff);
+            }
         }
         // 对比子文档
         Map<DocIdentity, Document> oldMap = oldDocument == null ? new HashMap<>() : oldDocument.getSubDocIdenMap();
         Map<DocIdentity, Document> newMap = newDocument == null ? new HashMap<>() : newDocument.getSubDocIdenMap();
-        ListUtil.diffMap(oldMap, newMap).values().forEach(doc -> compareDocument(doc, null, documentDiffList, false));
-        ListUtil.diffMap(newMap, oldMap).values().forEach(doc -> compareDocument(null, doc, documentDiffList, false));
+        ListUtil.diffMap(oldMap, newMap).values().forEach(doc -> compareDocument(doc, null, documentDiffList, false, ignoreDocDiffSet));
+        ListUtil.diffMap(newMap, oldMap).values().forEach(doc -> compareDocument(null, doc, documentDiffList, false, ignoreDocDiffSet));
         for (DocIdentity old : oldMap.keySet()) {
             if (newMap.containsKey(old)) {
-                compareDocument(oldMap.get(old), newMap.get(old), documentDiffList, false);
+                compareDocument(oldMap.get(old), newMap.get(old), documentDiffList, false, ignoreDocDiffSet);
             }
         }
         if (diff != null && diff.getDiffTypeEnum() == DocumentDiffTypeEnum.DELETE) {
-            documentDiffList.add(diff);
+            if (ignoreDocDiffSet.contains(diff)) {
+                log.info("文件变动为同步变动，无需记录，diff: {}", diff);
+                ignoreDocDiffSet.remove(diff);
+            } else {
+                documentDiffList.add(diff);
+            }
         }
     }
 

@@ -33,16 +33,16 @@ public class TestController {
         return GsonUtil.toJsonString(FileUtil.recursionPath(new File(path), "C:\\"));
     }
 
-    @GetMapping("/comparePath")
-    @ApiOperation("comparePath")
-    @Timer
-    public String comparePath(@RequestParam("path1") String path1, @RequestParam("path2") String path2) {
-        ArrayList<DocumentDiff> documentDiffList = new ArrayList<>();
-        FileUtil.compareDocument(FileUtil.recursionPath(new File(path1), "C:\\"), FileUtil.recursionPath(new File(path2), "C:\\"), documentDiffList, true);
-        String content = GsonUtil.toJsonString(documentDiffList);
-        FileUtil.writeJsonStr2File(content, new File("tmp.json"));
-        return content;
-    }
+//    @GetMapping("/comparePath")
+//    @ApiOperation("comparePath")
+//    @Timer
+//    public String comparePath(@RequestParam("path1") String path1, @RequestParam("path2") String path2) {
+//        ArrayList<DocumentDiff> documentDiffList = new ArrayList<>();
+//        FileUtil.compareDocument(FileUtil.recursionPath(new File(path1), "C:\\"), FileUtil.recursionPath(new File(path2), "C:\\"), documentDiffList, true);
+//        String content = GsonUtil.toJsonString(documentDiffList);
+//        FileUtil.writeJsonStr2File(content, new File("tmp.json"));
+//        return content;
+//    }
 
 
 }

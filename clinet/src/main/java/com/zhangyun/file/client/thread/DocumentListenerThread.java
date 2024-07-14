@@ -16,6 +16,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Slf4j
@@ -31,8 +32,10 @@ public class DocumentListenerThread implements Runnable {
             // 获取配置
             FileSyncConfig config = SpringContextUtils.getBean(FileSyncConfig.class);
             Document oldDocument = config.getRootDocument();
+            // ignore set
+            Set<DocumentDiff> ignoreDocDiffSet = (Set<DocumentDiff>) SpringContextUtils.getBean("ignoreDocDiffSet");
             // 比较文件变动
-            FileUtil.compareDocument(oldDocument, newDocument, documentDiffList, true);
+            FileUtil.compareDocument(oldDocument, newDocument, documentDiffList, true, ignoreDocDiffSet);
             if (CollectionUtils.isEmpty(documentDiffList)) {
                 return;
             }
