@@ -23,22 +23,20 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("document")
-@ApiModel(value="DocumentPO对象", description="")
-public class DocumentPO implements Serializable {
+@TableName("doc_upload_record")
+@ApiModel(value="DocUploadRecordPO对象", description="")
+public class DocUploadRecordPO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    private Long fileId;
 
-    private String path;
+    private Integer changeType;
 
-    private String pathHash;
-
-    private Integer type;
+    private Long deviceId;
 
     private LocalDateTime createTime;
 

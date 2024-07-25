@@ -23,9 +23,9 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("document")
-@ApiModel(value="DocumentPO对象", description="")
-public class DocumentPO implements Serializable {
+@TableName("device")
+@ApiModel(value="DevicePO对象", description="")
+public class DevicePO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,11 +34,7 @@ public class DocumentPO implements Serializable {
 
     private String name;
 
-    private String path;
-
-    private String pathHash;
-
-    private Integer type;
+    private Long downloadId;
 
     private LocalDateTime createTime;
 

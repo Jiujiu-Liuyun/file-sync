@@ -100,11 +100,12 @@ public class GeneratorCodeConfig {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
+        strategy.setLogicDeleteFieldName("deleted");
         // 公共父类
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
 //        strategy.setSuperEntityColumns("id");
-        strategy.setInclude("document");
+        strategy.setInclude("device", "document", "doc_upload_record", "doc_download_record");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
