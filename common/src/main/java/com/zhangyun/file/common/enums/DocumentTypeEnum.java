@@ -12,8 +12,8 @@ public enum DocumentTypeEnum {
     DIR(2, "dir"),
     ;
 
-    private Integer type;
-    private String desc;
+    private final Integer type;
+    private final String desc;
 
     private static DocumentTypeEnum of(Integer type) {
         return Arrays.stream(DocumentTypeEnum.values())

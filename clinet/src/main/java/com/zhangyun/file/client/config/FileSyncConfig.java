@@ -1,14 +1,13 @@
 package com.zhangyun.file.client.config;
 
-import com.zhangyun.file.common.domain.doc.Document;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.Document;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

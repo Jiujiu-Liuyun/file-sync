@@ -1,8 +1,8 @@
 package com.zhangyun.file.common.uilt;
 
-import com.zhangyun.file.common.domain.doc.DocIdentity;
-import com.zhangyun.file.common.domain.doc.Document;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocIdentityV1;
+import com.zhangyun.file.common.domain.doc.old.Document;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class FileUtil {
@@ -75,11 +73,11 @@ public class FileUtil {
             }
         }
         // 对比子文档
-        Map<DocIdentity, Document> oldMap = oldDocument == null ? new HashMap<>() : oldDocument.getSubDocIdenMap();
-        Map<DocIdentity, Document> newMap = newDocument == null ? new HashMap<>() : newDocument.getSubDocIdenMap();
+        Map<DocIdentityV1, Document> oldMap = oldDocument == null ? new HashMap<>() : oldDocument.getSubDocIdenMap();
+        Map<DocIdentityV1, Document> newMap = newDocument == null ? new HashMap<>() : newDocument.getSubDocIdenMap();
         ListUtil.diffMap(oldMap, newMap).values().forEach(doc -> compareDocument(doc, null, documentDiffList, false, ignoreDocDiffSet));
         ListUtil.diffMap(newMap, oldMap).values().forEach(doc -> compareDocument(null, doc, documentDiffList, false, ignoreDocDiffSet));
-        for (DocIdentity old : oldMap.keySet()) {
+        for (DocIdentityV1 old : oldMap.keySet()) {
             if (newMap.containsKey(old)) {
                 compareDocument(oldMap.get(old), newMap.get(old), documentDiffList, false, ignoreDocDiffSet);
             }

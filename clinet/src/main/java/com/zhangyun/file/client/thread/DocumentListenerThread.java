@@ -2,9 +2,8 @@ package com.zhangyun.file.client.thread;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.client.net.TransferFileService;
-import com.zhangyun.file.client.service.ClientNettyService;
-import com.zhangyun.file.common.domain.doc.Document;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.Document;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.uilt.FileUtil;
 import com.zhangyun.file.common.uilt.GsonUtil;
 import com.zhangyun.file.common.uilt.SpringContextUtils;

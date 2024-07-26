@@ -1,11 +1,9 @@
-package com.zhangyun.file.common.domain.doc;
+package com.zhangyun.file.common.domain.doc.old;
 
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
-import com.zhangyun.file.common.uilt.FileUtil;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -27,11 +25,11 @@ public class Document {
         return Paths.get(rootPath, relativePath).toString();
     }
 
-    public DocIdentity getDocIdentity() {
-        return DocIdentity.builder().name(name).typeEnum(typeEnum).build();
+    public DocIdentityV1 getDocIdentity() {
+        return DocIdentityV1.builder().name(name).typeEnum(typeEnum).build();
     }
 
-    public Map<DocIdentity, Document> getSubDocIdenMap() {
+    public Map<DocIdentityV1, Document> getSubDocIdenMap() {
         if (CollectionUtils.isEmpty(subDocuments)) {
             return new HashMap<>();
         }

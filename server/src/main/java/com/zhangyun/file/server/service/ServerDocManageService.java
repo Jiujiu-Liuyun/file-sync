@@ -1,6 +1,6 @@
 package com.zhangyun.file.server.service;
 
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.UploadDocDiffReq;
 import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;

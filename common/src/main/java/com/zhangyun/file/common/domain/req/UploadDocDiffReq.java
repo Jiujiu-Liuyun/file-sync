@@ -1,7 +1,7 @@
 package com.zhangyun.file.common.domain.req;
 
 import com.zhangyun.file.common.domain.BaseMsg;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)

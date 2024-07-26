@@ -1,6 +1,6 @@
 package com.zhangyun.file.common.domain;
 
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

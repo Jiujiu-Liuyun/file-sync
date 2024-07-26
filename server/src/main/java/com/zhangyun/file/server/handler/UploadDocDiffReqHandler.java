@@ -2,9 +2,8 @@ package com.zhangyun.file.server.handler;
 
 import com.zhangyun.file.common.annotation.Timer;
 import com.zhangyun.file.common.domain.NotifyDocDiff;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.UploadDocDiffReq;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import com.zhangyun.file.common.uilt.GsonUtil;
 import com.zhangyun.file.server.service.ServerDocManageService;
 import com.zhangyun.file.server.service.SessionService;

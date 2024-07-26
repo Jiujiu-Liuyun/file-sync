@@ -1,8 +1,6 @@
 package com.zhangyun.file.server.service;
 
-import com.zhangyun.file.common.domain.BaseMsg;
 import com.zhangyun.file.server.config.NettyConfig;
-import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import lombok.Getter;

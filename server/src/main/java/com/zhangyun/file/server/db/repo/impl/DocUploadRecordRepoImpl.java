@@ -1,8 +1,8 @@
-package com.zhangyun.file.server.service.impl;
+package com.zhangyun.file.server.db.repo.impl;
 
 import com.zhangyun.file.server.db.entity.DocUploadRecordPO;
 import com.zhangyun.file.server.db.mapper.DocUploadRecordMapper;
-import com.zhangyun.file.server.service.IDocUploadRecordService;
+import com.zhangyun.file.server.db.repo.DocUploadRecordRepo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author zhangyun
- * @since 2024-07-25
+ * @since 2024-07-26
  */
 @Service
-public class DocUploadRecordServiceImpl extends ServiceImpl<DocUploadRecordMapper, DocUploadRecordPO> implements IDocUploadRecordService {
+public class DocUploadRecordRepoImpl extends ServiceImpl<DocUploadRecordMapper, DocUploadRecordPO> implements DocUploadRecordRepo {
 
 }

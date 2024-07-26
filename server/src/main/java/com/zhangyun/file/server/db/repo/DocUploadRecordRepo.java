@@ -1,4 +1,4 @@
-package com.zhangyun.file.server.service;
+package com.zhangyun.file.server.db.repo;
 
 import com.zhangyun.file.server.db.entity.DocUploadRecordPO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author zhangyun
- * @since 2024-07-25
+ * @since 2024-07-26
  */
-public interface IDocUploadRecordService extends IService<DocUploadRecordPO> {
+public interface DocUploadRecordRepo extends IService<DocUploadRecordPO> {
 
 }

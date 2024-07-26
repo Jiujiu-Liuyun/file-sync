@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author zhangyun
- * @since 2024-07-25
+ * @since 2024-07-26
  */
 public interface DocDownloadRecordMapper extends BaseMapper<DocDownloadRecordPO> {
 

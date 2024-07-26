@@ -1,8 +1,7 @@
 package com.zhangyun.file.client.handler;
 
-import com.zhangyun.file.client.service.ClientDocManageService;
 import com.zhangyun.file.common.domain.NotifyDocDiff;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

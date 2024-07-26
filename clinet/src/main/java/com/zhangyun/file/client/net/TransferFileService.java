@@ -2,7 +2,7 @@ package com.zhangyun.file.client.net;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.client.service.ClientNettyService;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.UploadDocDiffReq;
 import com.zhangyun.file.common.domain.resp.BaseResp;
 import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;

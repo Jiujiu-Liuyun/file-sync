@@ -2,22 +2,18 @@ package com.zhangyun.file.client.service;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.client.thread.DocumentListenerThread;
-import com.zhangyun.file.common.domain.doc.Document;
-import com.zhangyun.file.common.domain.doc.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.DownloadFileReq;
 import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import com.zhangyun.file.common.uilt.FileUtil;
 import com.zhangyun.file.common.uilt.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.List;
 import java.util.concurrent.*;
 
 @Service

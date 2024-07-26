@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 /**
- * 自动生成mybatisplus的相关代码
+ * 自动生成mybatis plus的相关代码
  */
 public class GeneratorCodeConfig {
 
@@ -25,6 +25,8 @@ public class GeneratorCodeConfig {
         //实体属性 Swagger2 注解
         gc.setSwagger2(true);
         gc.setEntityName("%sPO");
+        gc.setServiceName("%sRepo");
+        gc.setServiceImplName("%sRepoImpl");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -41,8 +43,8 @@ public class GeneratorCodeConfig {
         pc.setParent("com.zhangyun.file.server");
         pc.setEntity("db.entity");
         pc.setMapper("db.mapper");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
+        pc.setService("db.repo");
+        pc.setServiceImpl("db.repo.impl");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -90,7 +92,9 @@ public class GeneratorCodeConfig {
         // templateConfig.setEntity("templates/entity2.java");
         // templateConfig.setService();
         // templateConfig.setController();
-
+        templateConfig.setService(null);
+        templateConfig.setServiceImpl(null);
+        templateConfig.setController(null);
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 

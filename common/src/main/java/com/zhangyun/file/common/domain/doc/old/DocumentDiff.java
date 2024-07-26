@@ -1,9 +1,8 @@
-package com.zhangyun.file.common.domain.doc;
+package com.zhangyun.file.common.domain.doc.old;
 
 import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
