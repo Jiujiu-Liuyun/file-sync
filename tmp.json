@@ -1,23 +1,18 @@
 [
   {
-    "diffTypeEnum": "CREATE",
-    "name": "test",
-    "relativePath": "Users\\26044\\IdeaProjects\\file-sync\\sync-dir\\client-2\\test",
-    "typeEnum": "FILE",
-    "lastModifyTime": 1720711499622
+    "docIdentity": {
+      "name": "test",
+      "parentPath": "C:\\Users\\26044\\IdeaProjects\\file-sync\\sync-dir",
+      "typeEnum": "DIR"
+    },
+    "diffTypeEnum": "CHANGE"
   },
   {
-    "diffTypeEnum": "CREATE",
-    "name": "test1",
-    "relativePath": "Users\\26044\\IdeaProjects\\file-sync\\sync-dir\\client-2\\test1",
-    "typeEnum": "DIR",
-    "lastModifyTime": 1720801263480
-  },
-  {
-    "diffTypeEnum": "CREATE",
-    "name": "test.txt",
-    "relativePath": "Users\\26044\\IdeaProjects\\file-sync\\sync-dir\\client-2\\test1\\test.txt",
-    "typeEnum": "FILE",
-    "lastModifyTime": 1720801253710
+    "docIdentity": {
+      "name": "新建 文本文档.txt",
+      "parentPath": "C:\\Users\\26044\\IdeaProjects\\file-sync\\sync-dir\\test",
+      "typeEnum": "FILE"
+    },
+    "diffTypeEnum": "CREATE"
   }
 ]
