@@ -1,9 +1,13 @@
 package com.zhangyun.file.common.uilt;
 
+import com.zhangyun.file.common.domain.doc.Doc;
+import com.zhangyun.file.common.domain.doc.DocDiff;
+import com.zhangyun.file.common.domain.doc.DocIdentity;
 import com.zhangyun.file.common.domain.doc.old.DocIdentityV1;
 import com.zhangyun.file.common.domain.doc.old.Document;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
+import com.zhangyun.file.common.domain.doc.DocTree;
+import com.zhangyun.file.common.enums.DocDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -25,6 +29,47 @@ public class FileUtil {
 
     public static String getAbsolutePath(String relativePath, String rootPath) {
         return Paths.get(rootPath, relativePath).toString();
+    }
+
+    public static DocTree visitPath(File file, String rootPath) {
+        if (file == null || !file.exists()) {
+            return null;
+        }
+        Doc doc = Doc.of(file.getAbsoluteFile().toPath(), Paths.get(rootPath));
+        List<DocTree> subDocTrees = new ArrayList<>();
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    DocTree subNode = visitPath(f, rootPath);
+                    subDocTrees.add(subNode);
+                }
+            }
+        }
+        return new DocTree(doc, subDocTrees);
+    }
+
+    public static void compareDocTree(DocTree docTreeOld, DocTree docTreeNew, List<DocDiff> docDiffList) {
+        if (docTreeOld == null && docTreeNew == null) {
+            return;
+        }
+        DocDiff diff = DocDiff.of(ObjectUtil.map(docTreeOld, DocTree::getNode), ObjectUtil.map(docTreeNew, DocTree::getNode));
+        if (diff != null && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
+            docDiffList.add(diff);
+        }
+        // 对比子文档
+        Map<DocIdentity, DocTree> mapOld = ObjectUtil.mapOrDefault(docTreeOld, DocTree::getSubDocIdentityMap, Collections.emptyMap());
+        Map<DocIdentity, DocTree> mapNew = ObjectUtil.mapOrDefault(docTreeNew, DocTree::getSubDocIdentityMap, Collections.emptyMap());
+        ListUtil.diffMap(mapOld, mapNew).values().forEach(doc -> compareDocTree(doc, null, docDiffList));
+        ListUtil.diffMap(mapNew, mapOld).values().forEach(doc -> compareDocTree(null, doc, docDiffList));
+        for (DocIdentity docIdentity : mapOld.keySet()) {
+            if (mapNew.containsKey(docIdentity)) {
+                compareDocTree(mapOld.get(docIdentity), mapNew.get(docIdentity), docDiffList);
+            }
+        }
+        if (diff != null && diff.getDiffTypeEnum() == DocDiffTypeEnum.DELETE) {
+            docDiffList.add(diff);
+        }
     }
 
     public static Document recursionPath(File file, String rootPath) {
@@ -64,7 +109,7 @@ public class FileUtil {
             return;
         }
         DocumentDiff diff = getDocumentDiff(oldDocument, newDocument, isHeader);
-        if (diff != null && diff.getDiffTypeEnum() != DocumentDiffTypeEnum.DELETE) {
+        if (diff != null && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
             if (ignoreDocDiffSet.contains(diff)) {
                 log.info("文件变动为同步变动，无需记录，diff: {}", diff);
                 ignoreDocDiffSet.remove(diff);
@@ -82,7 +127,7 @@ public class FileUtil {
                 compareDocument(oldMap.get(old), newMap.get(old), documentDiffList, false, ignoreDocDiffSet);
             }
         }
-        if (diff != null && diff.getDiffTypeEnum() == DocumentDiffTypeEnum.DELETE) {
+        if (diff != null && diff.getDiffTypeEnum() == DocDiffTypeEnum.DELETE) {
             if (ignoreDocDiffSet.contains(diff)) {
                 log.info("文件变动为同步变动，无需记录，diff: {}", diff);
                 ignoreDocDiffSet.remove(diff);
@@ -95,9 +140,9 @@ public class FileUtil {
     private static DocumentDiff getDocumentDiff(Document oldDocument, Document newDocument, boolean isHeader) {
         DocumentDiff diff = null;
         if (oldDocument == null) {
-            diff = new DocumentDiff(newDocument, DocumentDiffTypeEnum.CREATE);
+            diff = new DocumentDiff(newDocument, DocDiffTypeEnum.CREATE);
         } else if (newDocument == null) {
-            diff = new DocumentDiff(oldDocument, DocumentDiffTypeEnum.DELETE);
+            diff = new DocumentDiff(oldDocument, DocDiffTypeEnum.DELETE);
         } else {
             if (!isHeader) {
                 // 文档一致性校验
@@ -105,7 +150,7 @@ public class FileUtil {
                     throw new RuntimeException("文档对比错误，两者不为同一个文档");
                 }
                 if (!Objects.equals(newDocument.getLastModifyTime(), oldDocument.getLastModifyTime())) {
-                    diff = new DocumentDiff(newDocument, DocumentDiffTypeEnum.CHANGE);
+                    diff = new DocumentDiff(newDocument, DocDiffTypeEnum.CHANGE);
                 }
             }
         }

@@ -1,7 +1,7 @@
 
 # HTTP服务启动端口
 server:
-  port: 20000
+  port: 22200
 
 file-sync:
   client:
@@ -9,7 +9,7 @@ file-sync:
     interval: 3
   server:
     host: 127.0.0.1
-    port: 40000
+    port: 44400
 
 spring:
   mvc:
@@ -21,4 +21,4 @@ netty:
     worker: 4
   server:
     host: 127.0.0.1
-    port: 40001
+    port: 44401

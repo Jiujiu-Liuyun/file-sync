@@ -1,6 +1,6 @@
 package com.zhangyun.file.client.config;
 
-import com.zhangyun.file.client.handler.ClientHandler;
+import com.zhangyun.file.client.remote.handler.ClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;

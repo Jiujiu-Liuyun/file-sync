@@ -1,7 +1,7 @@
 
 # HTTP服务启动端口
 server:
-  port: 40000
+  port: 44400
 
 #spring:
 #  datasource:
@@ -23,7 +23,7 @@ netty:
   # 连接超时时间
   timeout: 6000
   # 服务器主端口
-  port: 40001
+  port: 44401
 
 spring:
   mvc:

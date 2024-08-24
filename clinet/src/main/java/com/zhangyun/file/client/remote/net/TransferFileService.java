@@ -1,11 +1,11 @@
-package com.zhangyun.file.client.net;
+package com.zhangyun.file.client.remote.net;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.client.service.ClientNettyService;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.UploadDocDiffReq;
 import com.zhangyun.file.common.domain.resp.BaseResp;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
+import com.zhangyun.file.common.enums.DocDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import com.zhangyun.file.common.enums.RespCodeEnum;
 import com.zhangyun.file.common.uilt.FileUtil;
@@ -29,9 +29,9 @@ public class TransferFileService {
     private ClientNettyService clientNettyService;
 
     public void uploadDocumentDiff(DocumentDiff diff) {
-        String path = diff.getDocAbsolutePath(config.getPath());
+        String path = diff.getDocAbsolutePath(config.getRootPath());
         String content = null;
-        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocumentDiffTypeEnum.DELETE) {
+        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
             content = FileUtil.readFile(new File(path));
         }
         UploadDocDiffReq req = new UploadDocDiffReq(diff, content);
@@ -42,9 +42,9 @@ public class TransferFileService {
     }
 
     public void uploadDocumentDiffNetty(DocumentDiff diff) {
-        String path = diff.getDocAbsolutePath(config.getPath());
+        String path = diff.getDocAbsolutePath(config.getRootPath());
         String content = null;
-        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocumentDiffTypeEnum.DELETE) {
+        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
             content = FileUtil.readFile(new File(path));
         }
         UploadDocDiffReq req = new UploadDocDiffReq(diff, content);

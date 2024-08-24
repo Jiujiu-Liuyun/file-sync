@@ -28,12 +28,15 @@ public class ClientNettyService implements InitializingBean {
         try {
             channel = bootstrap.connect(nettyConfig.getHost(), nettyConfig.getPort()).sync();
             log.info("netty客户端启动成功");
-        } catch (InterruptedException e) {
-            log.info("netty客户端启动失败, err: {}", ExceptionUtils.getStackTrace(e));
+        } catch (Exception e) {
+            log.error("netty客户端启动失败, err: {}", ExceptionUtils.getStackTrace(e));
         }
     }
 
     public void sendMessage(BaseMsg msg) {
+        if (channel == null) {
+            log.error("和netty服务器连接失败，发送消息失败");
+        }
         channel.channel().writeAndFlush(msg);
     }
 }

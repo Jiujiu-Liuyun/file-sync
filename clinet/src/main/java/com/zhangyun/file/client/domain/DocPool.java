@@ -3,17 +3,10 @@ package com.zhangyun.file.client.domain;
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.common.domain.doc.Doc;
 import com.zhangyun.file.common.domain.doc.DocDiff;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -54,6 +47,6 @@ public class DocPool {
     }
 
     public void removeDocDiff(DocDiff diff) {
-        docDiffs.removeFirst()
+        docDiffs.removeFirst();
     }
 }

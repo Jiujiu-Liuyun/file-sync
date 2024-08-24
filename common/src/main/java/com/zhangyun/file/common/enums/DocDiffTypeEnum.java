@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum DocumentDiffTypeEnum {
+public enum DocDiffTypeEnum {
     CREATE(1, "create"),
     CHANGE(2, "change"),
     DELETE(3, "delete"),
@@ -16,8 +16,8 @@ public enum DocumentDiffTypeEnum {
     private Integer type;
     private String desc;
 
-    private static DocumentDiffTypeEnum of(Integer type) {
-        return Arrays.stream(DocumentDiffTypeEnum.values())
+    private static DocDiffTypeEnum of(Integer type) {
+        return Arrays.stream(DocDiffTypeEnum.values())
                 .filter(typeEnum -> typeEnum.type.equals(type))
                 .findFirst()
                 .orElse(null);

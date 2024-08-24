@@ -17,7 +17,7 @@ import java.util.concurrent.BlockingQueue;
 public class FileSyncConfig {
 
     @Value("${file-sync.client.path}")
-    private String path;
+    private String rootPath;
 
     @Value("${file-sync.client.interval}")
     private Integer interval;

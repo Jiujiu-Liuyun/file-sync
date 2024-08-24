@@ -1,7 +1,7 @@
 package com.zhangyun.file.client.thread;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
-import com.zhangyun.file.client.net.TransferFileService;
+import com.zhangyun.file.client.remote.net.TransferFileService;
 import com.zhangyun.file.common.domain.doc.old.Document;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.uilt.FileUtil;

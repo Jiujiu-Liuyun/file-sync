@@ -2,7 +2,7 @@ package com.zhangyun.file.server.service;
 
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.req.UploadDocDiffReq;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
+import com.zhangyun.file.common.enums.DocDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import com.zhangyun.file.common.uilt.FileUtil;
 import com.zhangyun.file.server.config.FileSyncConfig;
@@ -22,13 +22,13 @@ public class ServerDocManageService {
         DocumentDiff diff = req.getDiff();
         String path = diff.getDocAbsolutePath(config.getPath());
         File file = new File(path);
-        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocumentDiffTypeEnum.DELETE) {
+        if (diff.getTypeEnum() == DocumentTypeEnum.FILE && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
             FileUtil.writeFile(req.getContent(), file);
         } else if (diff.getTypeEnum() == DocumentTypeEnum.FILE) {
             FileUtil.deleteFile(file);
-        } else if (diff.getTypeEnum() == DocumentTypeEnum.DIR && diff.getDiffTypeEnum() == DocumentDiffTypeEnum.CREATE) {
+        } else if (diff.getTypeEnum() == DocumentTypeEnum.DIR && diff.getDiffTypeEnum() == DocDiffTypeEnum.CREATE) {
             FileUtil.createDir(file);
-        } else if (diff.getTypeEnum() == DocumentTypeEnum.DIR && diff.getDiffTypeEnum() == DocumentDiffTypeEnum.DELETE) {
+        } else if (diff.getTypeEnum() == DocumentTypeEnum.DIR && diff.getDiffTypeEnum() == DocDiffTypeEnum.DELETE) {
             FileUtil.deleteDir(file);
         }
     }

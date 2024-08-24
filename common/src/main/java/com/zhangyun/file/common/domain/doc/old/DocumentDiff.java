@@ -1,6 +1,6 @@
 package com.zhangyun.file.common.domain.doc.old;
 
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
+import com.zhangyun.file.common.enums.DocDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +13,12 @@ import java.nio.file.Paths;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentDiff implements Serializable {
-    private DocumentDiffTypeEnum diffTypeEnum;
+    private DocDiffTypeEnum diffTypeEnum;
     private String name;
     private String relativePath;
     private DocumentTypeEnum typeEnum;
 
-    public DocumentDiff(Document doc, DocumentDiffTypeEnum typeEnum) {
+    public DocumentDiff(Document doc, DocDiffTypeEnum typeEnum) {
         this.diffTypeEnum = typeEnum;
         if (doc != null) {
             this.name = doc.getName();

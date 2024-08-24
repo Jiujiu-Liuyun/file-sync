@@ -1,4 +1,4 @@
-package com.zhangyun.file.client.handler;
+package com.zhangyun.file.client.remote.handler;
 
 import com.zhangyun.file.common.domain.NotifyDocDiff;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;

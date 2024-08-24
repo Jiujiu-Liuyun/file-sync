@@ -1,5 +1,6 @@
 package com.zhangyun.file.client.controller;
 
+import com.zhangyun.file.client.domain.doc.DocManager;
 import com.zhangyun.file.common.annotation.Timer;
 import com.zhangyun.file.common.uilt.FileUtil;
 import com.zhangyun.file.common.uilt.GsonUtil;
@@ -10,12 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.File;
 
 @Slf4j
 @RestController
 @Api(tags = "测试")
 public class TestController {
+    @Resource
+    private DocManager docManager;
 
     @GetMapping("/test")
     @ApiOperation("test")
@@ -24,23 +28,14 @@ public class TestController {
         return "test success!";
     }
 
-    @GetMapping("/resolvePath")
-    @ApiOperation("resolvePath")
+    @GetMapping("/compare")
+    @ApiOperation("compare")
     @Timer
-    public String resolvePath(@RequestParam("path") String path) {
-        return GsonUtil.toJsonString(FileUtil.recursionPath(new File(path), "C:\\"));
+    public String compare() {
+        docManager.compareDocTree();
+        return "success";
     }
 
-//    @GetMapping("/comparePath")
-//    @ApiOperation("comparePath")
-//    @Timer
-//    public String comparePath(@RequestParam("path1") String path1, @RequestParam("path2") String path2) {
-//        ArrayList<DocumentDiff> documentDiffList = new ArrayList<>();
-//        FileUtil.compareDocument(FileUtil.recursionPath(new File(path1), "C:\\"), FileUtil.recursionPath(new File(path2), "C:\\"), documentDiffList, true);
-//        String content = GsonUtil.toJsonString(documentDiffList);
-//        FileUtil.writeJsonStr2File(content, new File("tmp.json"));
-//        return content;
-//    }
 
 
 }

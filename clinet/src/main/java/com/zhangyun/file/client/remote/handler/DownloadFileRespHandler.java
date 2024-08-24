@@ -1,4 +1,4 @@
-package com.zhangyun.file.client.handler;
+package com.zhangyun.file.client.remote.handler;
 
 import com.zhangyun.file.client.config.FileSyncConfig;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
@@ -27,7 +27,7 @@ public class DownloadFileRespHandler extends SimpleChannelInboundHandler<Downloa
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, DownloadFileResp msg) throws Exception {
         log.info("收到下载文件响应: {}", msg);
-        String path = FileUtil.getAbsolutePath(msg.getRelativePath(), config.getPath());
+        String path = FileUtil.getAbsolutePath(msg.getRelativePath(), config.getRootPath());
         FileUtil.writeFile(msg.getContent(), new File(path));
         ignoreDocDiffSet.add(new DocumentDiff(msg.getDiffTypeEnum(), msg.getName(), msg.getRelativePath(), msg.getTypeEnum()));
     }

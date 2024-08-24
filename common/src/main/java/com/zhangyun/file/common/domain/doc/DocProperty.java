@@ -1,22 +1,25 @@
 package com.zhangyun.file.common.domain.doc;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.nio.file.Path;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DocProperty {
     private Long lastModifyTime;
 
     public static DocProperty of(Path path) {
         File file = new File(path.toUri());
-        return DocProperty.builder().lastModifyTime(file.lastModified()).build();
+        return new DocProperty(file.lastModified());
     }
 
     public DocProperty deepCopy() {
-        return DocProperty.builder().lastModifyTime(lastModifyTime).build();
+        return new DocProperty(lastModifyTime);
     }
 }

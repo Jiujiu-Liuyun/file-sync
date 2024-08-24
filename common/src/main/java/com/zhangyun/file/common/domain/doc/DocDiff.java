@@ -1,44 +1,37 @@
 package com.zhangyun.file.common.domain.doc;
 
-import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
-import com.zhangyun.file.common.enums.DocumentDiffTypeEnum;
+import com.zhangyun.file.common.enums.DocDiffTypeEnum;
 import com.zhangyun.file.common.enums.DocumentTypeEnum;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
 @Data
 @Slf4j
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DocDiff {
     private DocIdentity docIdentity;
-    private DocumentDiffTypeEnum diffTypeEnum;
+    private DocDiffTypeEnum diffTypeEnum;
 
-    public static DocDiff of(Doc old, Doc newDoc) {
+    public static DocDiff of(Doc docOld, Doc docNew) {
         DocDiff docDiff = null;
-        if (old == null && newDoc != null) {
-            docDiff = DocDiff.builder()
-                    .diffTypeEnum(DocumentDiffTypeEnum.CREATE)
-                    .docIdentity(newDoc.getDocIdentity().deepCopy())
-                    .build();
-        } else if (newDoc == null && old != null) {
-            docDiff = DocDiff.builder()
-                    .diffTypeEnum(DocumentDiffTypeEnum.DELETE)
-                    .docIdentity(old.getDocIdentity().deepCopy())
-                    .build();
-        } else if (newDoc != null && old != null) {
+        if (docOld == null && docNew != null) {
+            docDiff = new DocDiff(docNew.getDocIdentity().deepCopy(), DocDiffTypeEnum.CREATE);
+        } else if (docNew == null && docOld != null) {
+            docDiff = new DocDiff(docOld.getDocIdentity().deepCopy(), DocDiffTypeEnum.DELETE);
+        } else if (docNew != null && docOld != null) {
             // 文档一致性校验
-            if (!Objects.equals(old.getDocIdentity(), newDoc.getDocIdentity())) {
-                log.error("文档对比错误，两者不为同一个文档, old:{}, new:{}", old, newDoc);
+            if (!Objects.equals(docOld.getDocIdentity(), docNew.getDocIdentity())) {
+                log.error("文档对比错误，两者不为同一个文档, docOld:{}, new:{}", docOld, docNew);
                 throw new RuntimeException("文档对比错误，两者不为同一个文档");
             }
-            if (!Objects.equals(old.getDocProperty().getLastModifyTime(), newDoc.getDocProperty().getLastModifyTime())) {
-                docDiff = DocDiff.builder()
-                        .diffTypeEnum(DocumentDiffTypeEnum.CHANGE)
-                        .docIdentity(old.getDocIdentity().deepCopy())
-                        .build();
+            if (!Objects.equals(docOld.getDocProperty().getLastModifyTime(), docNew.getDocProperty().getLastModifyTime())
+                    && docOld.getDocIdentity().getTypeEnum() == DocumentTypeEnum.FILE) {
+                docDiff = new DocDiff(docOld.getDocIdentity().deepCopy(), DocDiffTypeEnum.CHANGE);
             }
         }
         return docDiff;
