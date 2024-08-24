@@ -1,4 +1,4 @@
-package com.zhangyun.file.common.domain.req;
+package com.zhangyun.file.common.domain.dto;
 
 import com.zhangyun.file.common.domain.doc.DocDiff;
 import lombok.AllArgsConstructor;
@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UploadDocDiffReq {
+public class DownloadDocDiffDTO {
     private DocDiff diff;
     private String content;
-    private String deviceId;
 }

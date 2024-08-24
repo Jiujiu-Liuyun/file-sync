@@ -1,6 +1,6 @@
-package com.zhangyun.file.common.domain;
+package com.zhangyun.file.common.domain.nettyMsg;
 
-import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.DocDiff;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotifyDocDiff extends BaseMsg {
-    private DocumentDiff diff;
+    private DocDiff diff;
 
     @Override
     public int getMessageType() {

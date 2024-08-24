@@ -1,4 +1,4 @@
-package com.zhangyun.file.server.handler;
+package com.zhangyun.file.server.remote.netty.handler;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class FileSyncConfig {
 
     @Value("${file-sync.server.path}")
-    private String path;
+    private String rootPath;
 
 }

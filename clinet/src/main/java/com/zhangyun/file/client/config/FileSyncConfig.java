@@ -1,5 +1,6 @@
 package com.zhangyun.file.client.config;
 
+import com.zhangyun.file.common.domain.doc.DocDiff;
 import com.zhangyun.file.common.domain.doc.old.Document;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import lombok.Data;
@@ -19,6 +20,9 @@ public class FileSyncConfig {
     @Value("${file-sync.client.path}")
     private String rootPath;
 
+    @Value("${file-sync.client.deviceId}")
+    private String deviceId;
+
     @Value("${file-sync.client.interval}")
     private Integer interval;
 
@@ -31,9 +35,9 @@ public class FileSyncConfig {
     // 用户同步目录
     private Document rootDocument;
 
-    @Bean
-    public BlockingQueue<DocumentDiff> initDocDiffBlockingQueue() {
-        return new ArrayBlockingQueue<>(500);
+    @Bean(name = "remoteDocDiffQueue")
+    public BlockingQueue<DocDiff> initDocDiffBlockingQueue() {
+        return new ArrayBlockingQueue<>(1024);
     }
 
     @Bean(name = "ignoreDocDiffSet")

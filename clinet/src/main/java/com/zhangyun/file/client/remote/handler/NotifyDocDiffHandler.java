@@ -1,7 +1,7 @@
 package com.zhangyun.file.client.remote.handler;
 
-import com.zhangyun.file.common.domain.NotifyDocDiff;
-import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
+import com.zhangyun.file.common.domain.doc.DocDiff;
+import com.zhangyun.file.common.domain.nettyMsg.NotifyDocDiff;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -17,12 +17,8 @@ import java.util.concurrent.BlockingQueue;
 @Component
 @Slf4j
 public class NotifyDocDiffHandler extends SimpleChannelInboundHandler<NotifyDocDiff> {
-    @Resource
-    private BlockingQueue<DocumentDiff> documentDiffBlockingQueue;
-
-    @Resource
-    private Set<DocumentDiff> ignoreDocDiffSet;
-
+    @Resource(name = "remoteDocDiffQueue")
+    private BlockingQueue<DocDiff> remoteDocDiffQueue;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, NotifyDocDiff msg) throws Exception {
@@ -30,10 +26,9 @@ public class NotifyDocDiffHandler extends SimpleChannelInboundHandler<NotifyDocD
         serverDocDiffProvider(msg.getDiff());
     }
 
-    public void serverDocDiffProvider(DocumentDiff diff) {
+    public void serverDocDiffProvider(DocDiff diff) {
         try {
-            documentDiffBlockingQueue.put(diff);
-            ignoreDocDiffSet.add(diff);
+            remoteDocDiffQueue.put(diff);
         } catch (InterruptedException e) {
             log.info("阻塞队列添加元素异常, err: {}", ExceptionUtils.getStackTrace(e));
             throw new RuntimeException(e);

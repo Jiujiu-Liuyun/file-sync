@@ -1,7 +1,7 @@
 package com.zhangyun.file.common.protocol;
 
 
-import com.zhangyun.file.common.domain.BaseMsg;
+import com.zhangyun.file.common.domain.nettyMsg.BaseMsg;
 import com.zhangyun.file.common.uilt.GsonUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;

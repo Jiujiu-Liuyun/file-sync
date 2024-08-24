@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
-@SpringBootApplication(scanBasePackages = "com.zhangyun")
+@SpringBootApplication(scanBasePackages = "com.zhangyun.file")
 @Slf4j
 @EnableOpenApi
 @MapperScan("com.zhangyun.file.server.db.mapper")

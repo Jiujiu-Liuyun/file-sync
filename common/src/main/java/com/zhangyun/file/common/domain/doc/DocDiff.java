@@ -1,7 +1,7 @@
 package com.zhangyun.file.common.domain.doc;
 
 import com.zhangyun.file.common.enums.DocDiffTypeEnum;
-import com.zhangyun.file.common.enums.DocumentTypeEnum;
+import com.zhangyun.file.common.enums.DocTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class DocDiff {
                 throw new RuntimeException("文档对比错误，两者不为同一个文档");
             }
             if (!Objects.equals(docOld.getDocProperty().getLastModifyTime(), docNew.getDocProperty().getLastModifyTime())
-                    && docOld.getDocIdentity().getTypeEnum() == DocumentTypeEnum.FILE) {
+                    && docOld.getDocIdentity().getDocTypeEnum() == DocTypeEnum.FILE) {
                 docDiff = new DocDiff(docOld.getDocIdentity().deepCopy(), DocDiffTypeEnum.CHANGE);
             }
         }

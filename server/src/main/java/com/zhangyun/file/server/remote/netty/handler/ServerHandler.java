@@ -1,4 +1,4 @@
-package com.zhangyun.file.server.handler;
+package com.zhangyun.file.server.remote.netty.handler;
 
 import com.zhangyun.file.common.protocol.FrameDecoder;
 import com.zhangyun.file.common.protocol.MessageCodecSharable;
@@ -15,13 +15,9 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
     @Resource
     private MessageCodecSharable messageCodecSharable;
     @Resource
-    private UploadDocDiffReqHandler uploadDocDiffReqHandler;
-    @Resource
-    private SessionManageHandler sessionManageHandler;
+    private DeviceLoginHandler deviceLoginHandler;
     @Resource
     private GlobalExceptionHandler globalExceptionHandler;
-    @Resource
-    private DownloadFileReqHandler downloadFileReqHandler;
 
     /**
      * 初始化通道以及配置对应管道的处理器
@@ -31,9 +27,7 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
-        pipeline.addLast(uploadDocDiffReqHandler);
-        pipeline.addLast(sessionManageHandler);
-        pipeline.addLast(downloadFileReqHandler);
+        pipeline.addLast(deviceLoginHandler);
 
 
         pipeline.addLast(globalExceptionHandler);

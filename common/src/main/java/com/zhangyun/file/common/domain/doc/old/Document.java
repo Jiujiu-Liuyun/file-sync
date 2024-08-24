@@ -1,6 +1,6 @@
 package com.zhangyun.file.common.domain.doc.old;
 
-import com.zhangyun.file.common.enums.DocumentTypeEnum;
+import com.zhangyun.file.common.enums.DocTypeEnum;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class Document {
     private String name;
     private String relativePath;
-    private DocumentTypeEnum typeEnum;
+    private DocTypeEnum typeEnum;
     private Long lastModifyTime;
     private List<Document> subDocuments;
 
@@ -37,11 +37,11 @@ public class Document {
     }
 
     public boolean isFile() {
-        return typeEnum == DocumentTypeEnum.FILE;
+        return typeEnum == DocTypeEnum.FILE;
     }
 
     public boolean isDir() {
-        return typeEnum == DocumentTypeEnum.DIR;
+        return typeEnum == DocTypeEnum.DIR;
     }
 
 

@@ -8,7 +8,7 @@ import com.zhangyun.file.common.domain.doc.old.Document;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.domain.doc.DocTree;
 import com.zhangyun.file.common.enums.DocDiffTypeEnum;
-import com.zhangyun.file.common.enums.DocumentTypeEnum;
+import com.zhangyun.file.common.enums.DocTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -81,7 +81,7 @@ public class FileUtil {
             document = Document.builder()
                     .name(file.getName())
                     .relativePath(getRelativePath(file, rootPath))
-                    .typeEnum(DocumentTypeEnum.FILE)
+                    .typeEnum(DocTypeEnum.FILE)
                     .lastModifyTime(file.lastModified())
                     .subDocuments(new ArrayList<>()).build();
         } else {
@@ -96,7 +96,7 @@ public class FileUtil {
             document = Document.builder()
                     .name(file.getName())
                     .relativePath(getRelativePath(file, rootPath))
-                    .typeEnum(DocumentTypeEnum.DIR)
+                    .typeEnum(DocTypeEnum.DIR)
                     .lastModifyTime(file.lastModified())
                     .subDocuments(subs).build();
         }

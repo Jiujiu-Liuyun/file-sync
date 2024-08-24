@@ -1,15 +1,13 @@
 package com.zhangyun.file.common.domain.doc;
 
-import com.zhangyun.file.common.enums.DocumentTypeEnum;
+import com.zhangyun.file.common.enums.DocTypeEnum;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -17,12 +15,12 @@ import java.util.Objects;
 public class DocIdentity {
     private String name;
     private String parentPath;
-    private DocumentTypeEnum typeEnum;
+    private DocTypeEnum docTypeEnum;
 
     public static DocIdentity of(Path path, Path rootPath) {
         File file = new File(path.toUri());
         return new DocIdentity(file.getName(), getRelativePath(file.getParentFile().toPath(), rootPath),
-                file.isFile() ? DocumentTypeEnum.FILE : DocumentTypeEnum.DIR);
+                file.isFile() ? DocTypeEnum.FILE : DocTypeEnum.DIR);
     }
 
     public static String getRelativePath(Path path, Path rootPath) {
@@ -39,6 +37,6 @@ public class DocIdentity {
     }
 
     public DocIdentity deepCopy() {
-        return new DocIdentity(name, parentPath, typeEnum);
+        return new DocIdentity(name, parentPath, docTypeEnum);
     }
 }

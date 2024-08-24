@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UploadDocDiffReq {
+public class DownloadDocDiffReq {
     private DocDiff diff;
-    private String content;
-    private String deviceId;
 }

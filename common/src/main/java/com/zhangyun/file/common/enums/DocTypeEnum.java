@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum DocumentTypeEnum {
+public enum DocTypeEnum {
     FILE(1, "file"),
     DIR(2, "dir"),
     ;
@@ -15,8 +15,8 @@ public enum DocumentTypeEnum {
     private final Integer type;
     private final String desc;
 
-    private static DocumentTypeEnum of(Integer type) {
-        return Arrays.stream(DocumentTypeEnum.values())
+    private static DocTypeEnum of(Integer type) {
+        return Arrays.stream(DocTypeEnum.values())
                 .filter(typeEnum -> typeEnum.type.equals(type))
                 .findFirst()
                 .orElse(null);

@@ -14,7 +14,7 @@ public class ClientHandler extends ChannelInitializer<SocketChannel> {
     @Resource
     private MessageCodecSharable messageCodecSharable;
     @Resource
-    private DownloadFileRespHandler downloadFileRespHandler;
+    private ChannelActiveHandler channelActiveHandler;
     @Resource
     private GlobalExceptionHandler globalExceptionHandler;
     @Resource
@@ -25,7 +25,7 @@ public class ClientHandler extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
-        pipeline.addLast(downloadFileRespHandler);
+        pipeline.addLast(channelActiveHandler);
         pipeline.addLast(notifyDocDiffHandler);
         pipeline.addLast(globalExceptionHandler);
     }
