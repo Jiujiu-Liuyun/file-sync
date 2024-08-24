@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -28,9 +29,9 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class DocManager implements InitializingBean {
     /**
-     * 文档资源树
+     * 文档树
      */
-    private static DocTree docTree;
+    private DocTree docTree;
     /**
      * 本地差异队列
      */
@@ -87,10 +88,9 @@ public class DocManager implements InitializingBean {
 
     /**
      * 初始化-文档资源树根节点
-     * @throws Exception
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         localDocDiffQueue = new ArrayBlockingQueue<>(1024);
         File rootDir = new File(fileSyncConfig.getRootPath());
         docTree = FileUtil.visitPath(rootDir, fileSyncConfig.getRootPath());
@@ -124,6 +124,8 @@ public class DocManager implements InitializingBean {
                     DocDiff diff = remoteDocDiffQueue.take();
                     log.info("处理远程文档差异, diff: {}", diff);
                     docTransferService.downloadDocDiff(diff);
+                    // 更改文档树
+                    DocTree.updateTreeNode(docTree, Paths.get(diff.getDocIdentity().getRelativePath()), Paths.get(fileSyncConfig.getRootPath()), diff.getDiffTypeEnum());
                 } catch (Exception e) {
                     log.error("消费文档差异数据失败, {}", ExceptionUtils.getStackTrace(e));
                 }
