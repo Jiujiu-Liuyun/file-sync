@@ -56,6 +56,7 @@ public class DocTransferService {
             DownloadDocDiffReq req = new DownloadDocDiffReq(diff);
             DownloadDocDiffResp resp = restTemplate.postForObject("http://" + fileSyncConfig.getServerHost() + ":" + fileSyncConfig.getServerPort() + "/doc/transfer/download", req, DownloadDocDiffResp.class);
             RemoteUtil.checkResp(resp);
+            FileUtil.writeFile(resp.getData().getContent(), file);
         } else if (diff.getDocIdentity().getDocTypeEnum() == DocTypeEnum.FILE
                 && diff.getDiffTypeEnum() == DocDiffTypeEnum.DELETE) {
             FileUtil.deleteFile(file);
