@@ -157,27 +157,27 @@ public class FileUtil {
         return diff;
     }
 
-    public static String readFile(File file) {
-        String content;
-        StringBuilder builder = new StringBuilder();
-        try (InputStreamReader streamReader = new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
-             BufferedReader bufferedReader = new BufferedReader(streamReader)) {
-            while ((content = bufferedReader.readLine()) != null) {
-                builder.append(content);
-            }
+    public static byte[] readFile(File file) {
+        byte[] content = new byte[(int) file.length()];
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            fileInputStream.read(content);
         } catch (IOException e) {
             log.error("读取文件异常, e: {}", ExceptionUtils.getStackTrace(e));
             throw new RuntimeException(e);
         }
-        return builder.toString();
+        return content;
     }
 
-    public static void writeFile(String content, File file) {
+    public static void writeFile(byte[] content, File file) {
         if (!file.getAbsoluteFile().getParentFile().exists()) {
             file.getAbsoluteFile().getParentFile().mkdirs();
         }
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
-            out.write(content);
+        if (file.exists()) {
+            file.delete();
+        }
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(content, 0, content.length);
+            fileOutputStream.flush();
             log.info("写文件成功, file: {}", file);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -185,7 +185,7 @@ public class FileUtil {
     }
 
     public static void writeJsonStr2File(String json, File file) {
-        writeFile(GsonUtil.prettyPrint(json), file);
+        writeFile(GsonUtil.prettyPrint(json).getBytes(StandardCharsets.UTF_8), file);
     }
 
     public static boolean deleteFile(File file) {

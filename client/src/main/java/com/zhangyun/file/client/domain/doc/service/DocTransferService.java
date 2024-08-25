@@ -36,7 +36,7 @@ public class DocTransferService {
             log.error("上传文档差异列表, diff is null");
             return;
         }
-        String content = null;
+        byte[] content = null;
         if (diff.getDocIdentity().getDocTypeEnum() == DocTypeEnum.FILE
                 && diff.getDiffTypeEnum() != DocDiffTypeEnum.DELETE) {
             String absolutePath = diff.getDocIdentity().getAbsolutePath(fileSyncConfig.getRootPath());

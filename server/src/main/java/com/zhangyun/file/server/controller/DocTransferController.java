@@ -48,7 +48,7 @@ public class DocTransferController {
     @Timer
     public DownloadDocDiffResp download(@RequestBody DownloadDocDiffReq req) {
         String path = req.getDiff().getDocIdentity().getAbsolutePath(fileSyncConfig.getRootPath());
-        String content = FileUtil.readFile(new File(path));
+        byte[] content = FileUtil.readFile(new File(path));
         DownloadDocDiffDTO data = new DownloadDocDiffDTO(req.getDiff(), content);
         return ObjectUtil.successResp(data, DownloadDocDiffResp.class);
     }

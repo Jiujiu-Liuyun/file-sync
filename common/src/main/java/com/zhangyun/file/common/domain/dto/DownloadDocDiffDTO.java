@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DownloadDocDiffDTO {
     private DocDiff diff;
-    private String content;
+    private byte[] content;
 }

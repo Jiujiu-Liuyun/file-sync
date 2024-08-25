@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UploadDocDiffReq {
     private DocDiff diff;
-    private String content;
+    private byte[] content;
     private String deviceId;
 }
