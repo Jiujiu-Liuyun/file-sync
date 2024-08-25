@@ -3,11 +3,12 @@ package com.zhangyun.file.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum DocDiffTypeEnum {
+public enum DocDiffTypeEnum implements Serializable {
     CREATE(1, "create"),
     CHANGE(2, "change"),
     DELETE(3, "delete"),

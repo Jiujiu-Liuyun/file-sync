@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DocIdentity {
+public class DocIdentity implements Serializable {
     private String name;
     private String parentPath;
     private DocTypeEnum docTypeEnum;

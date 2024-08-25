@@ -3,11 +3,12 @@ package com.zhangyun.file.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum DocTypeEnum {
+public enum DocTypeEnum implements Serializable {
     FILE(1, "file"),
     DIR(2, "dir"),
     ;

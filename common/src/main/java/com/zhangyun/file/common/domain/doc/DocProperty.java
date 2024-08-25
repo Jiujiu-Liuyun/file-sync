@@ -6,12 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Path;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DocProperty {
+public class DocProperty implements Serializable {
     private Long lastModifyTime;
 
     public static DocProperty of(Path path) {
