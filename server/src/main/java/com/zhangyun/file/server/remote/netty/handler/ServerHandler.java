@@ -18,6 +18,8 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
     private DeviceLoginHandler deviceLoginHandler;
     @Resource
     private GlobalExceptionHandler globalExceptionHandler;
+    @Resource
+    private SessionHandler sessionHandler;
 
     /**
      * 初始化通道以及配置对应管道的处理器
@@ -27,6 +29,7 @@ public class ServerHandler extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new FrameDecoder());
         pipeline.addLast(messageCodecSharable);
+        pipeline.addLast(sessionHandler);
         pipeline.addLast(deviceLoginHandler);
 
 

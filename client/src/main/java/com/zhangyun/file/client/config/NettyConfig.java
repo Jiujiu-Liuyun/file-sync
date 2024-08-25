@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @Data
 @Configuration
 @Slf4j
-public class NettyConfig implements InitializingBean {
+public class NettyConfig {
 
     @Value("${netty.server.host}")
     private String host;
@@ -29,34 +29,6 @@ public class NettyConfig implements InitializingBean {
     @Value("${netty.client.worker}")
     private Integer worker;
 
-    @Resource
-    private ClientHandler clientHandler;
-
-    @Getter
+    private Bootstrap bootstrap;
     private ChannelFuture channelFuture;
-
-    /**
-     * netty客户端 channel
-     */
-    public void initNetty() {
-        try {
-            // 新建一组线程池
-            NioEventLoopGroup eventExecutors = new NioEventLoopGroup(worker);
-            Bootstrap bootstrap = new Bootstrap();
-            bootstrap
-                    .group(eventExecutors)   // 指定线程组
-                    .option(ChannelOption.SO_KEEPALIVE, true)
-                    .channel(NioSocketChannel.class) // 指定通道
-                    .handler(clientHandler); // 指定处理器
-            channelFuture = bootstrap.connect(host, port).sync();
-            log.info("netty客户端启动成功, channelFuture: {}", channelFuture);
-        } catch (Exception e) {
-            log.error("netty客户端启动失败, err: {}", ExceptionUtils.getStackTrace(e));
-        }
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        initNetty();
-    }
 }

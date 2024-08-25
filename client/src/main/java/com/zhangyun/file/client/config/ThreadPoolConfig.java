@@ -13,7 +13,7 @@ public class ThreadPoolConfig {
 
     @Bean
     public ScheduledExecutorService getScheduledExecutorService() {
-        return Executors.newScheduledThreadPool(1);
+        return Executors.newScheduledThreadPool(3);
     }
 
 }

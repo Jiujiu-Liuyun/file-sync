@@ -20,12 +20,10 @@ public class DocLockManager {
     }
 
     public void lockDocTree() {
-        log.info("锁住资源池");
         docTreeLock.lock();
     }
 
     public void unlockDocTree() {
-        log.info("释放资源池");
         docTreeLock.unlock();
     }
 

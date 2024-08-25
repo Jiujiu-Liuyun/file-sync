@@ -7,6 +7,7 @@ import com.zhangyun.file.common.domain.doc.DocTree;
 import com.zhangyun.file.common.domain.doc.old.DocumentDiff;
 import com.zhangyun.file.common.uilt.FileUtil;
 import com.zhangyun.file.common.uilt.GsonUtil;
+import com.zhangyun.file.common.uilt.ObjectUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -61,6 +62,9 @@ public class DocManager implements InitializingBean {
             // 2.比较文档树
             List<DocDiff> docDiffListNew = new ArrayList<>();
             FileUtil.compareDocTree(docTree, docTreeNew, docDiffListNew);
+            if (ObjectUtil.anyBlank(docDiffListNew)) {
+                return;
+            }
             log.info("文档树比较结果, docDiffListNew: {}", GsonUtil.toJsonString(docDiffListNew));
             // 3.合并文档树
             mergeDocDiffs(docDiffListNew);

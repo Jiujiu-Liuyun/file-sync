@@ -1,39 +1,42 @@
 package com.zhangyun.file.server.remote.netty.service;
 
-import com.zhangyun.file.common.domain.nettyMsg.BaseMsg;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @Slf4j
 public class SessionService {
-    private Map<String, Channel> deviceSessions;
+    private Map<String, Channel> deviceToChannel;
+    private Map<Channel, String> channelToDevice;
 
     public SessionService() {
-        deviceSessions = new HashMap<>();
+        deviceToChannel = new HashMap<>();
+        channelToDevice = new HashMap<>();
     }
 
     public boolean isOnline(String deviceId) {
-        return deviceSessions.containsKey(deviceId);
+        return deviceToChannel.containsKey(deviceId);
     }
 
     public void login(String deviceId, Channel channel) {
         log.info("设备登录, deviceId: {}, channel: {}", deviceId, channel);
-        deviceSessions.put(deviceId, channel);
+        deviceToChannel.put(deviceId, channel);
+        channelToDevice.put(channel, deviceId);
     }
 
-    public void logout(String deviceId) {
-        log.info("设备下线, deviceId: {}", deviceId);
-        deviceSessions.remove(deviceId);
+    public void logout(Channel channel) {
+        log.info("设备下线, channel: {}", channel);
+        String deviceId = channelToDevice.get(channel);
+        channelToDevice.remove(channel);
+        deviceToChannel.remove(deviceId);
     }
 
     public Map<String, Channel> getOtherSession(String deviceId) {
-        Map<String, Channel> other = new HashMap<>(deviceSessions);
+        Map<String, Channel> other = new HashMap<>(deviceToChannel);
         other.remove(deviceId);
         return other;
     }
