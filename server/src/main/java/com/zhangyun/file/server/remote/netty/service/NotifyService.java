@@ -26,7 +26,7 @@ public class NotifyService {
             return;
         }
         for (Map.Entry<String, Channel> entry : session.entrySet()) {
-            log.info("通知客户端文档变更, diff: {}, entry: {}", docDiff, GsonUtil.toJsonString(entry));
+            log.info("通知客户端文档变更, diff: {}, entry: {}", docDiff, entry);
             Channel channel = entry.getValue();
             channel.writeAndFlush(new NotifyDocDiff(docDiff));
         }
