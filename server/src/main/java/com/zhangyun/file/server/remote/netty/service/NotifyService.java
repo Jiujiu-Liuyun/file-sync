@@ -9,6 +9,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -20,7 +21,7 @@ public class NotifyService {
 
     public void notifyDocDiff(DocDiff docDiff, String deviceId) {
         Map<String, Channel> session = sessionService.getOtherSession(deviceId);
-        log.info("当前在线客户端, session: {}", GsonUtil.toJsonString(session));
+        log.info("当前在线客户端, session: {}", session);
         if (MapUtils.isEmpty(session)) {
             return;
         }
