@@ -7,13 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Data
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
-public class DocDiff {
+public class DocDiff implements Serializable {
     private DocIdentity docIdentity;
     private DocDiffTypeEnum diffTypeEnum;
 

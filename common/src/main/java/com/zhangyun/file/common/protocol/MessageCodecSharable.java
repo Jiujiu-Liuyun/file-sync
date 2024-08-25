@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -63,7 +64,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, BaseMsg
             objectOutputStream.writeObject(message);
             msgBytes = byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-            log.error("消息序列化失败, error: {}, msg: {}", e.getMessage(), GsonUtil.toJsonString(message));
+            log.error("消息序列化失败, msg: {}, error: {}", GsonUtil.toJsonString(message), ExceptionUtils.getStackTrace(e));
             throw new RuntimeException(e);
         }
         // msg length
