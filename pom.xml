@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>clinet</module>
+        <module>client</module>
         <module>server</module>
         <module>common</module>
     </modules>

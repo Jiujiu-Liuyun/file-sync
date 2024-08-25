@@ -64,6 +64,8 @@ public class DocManager implements InitializingBean {
             log.info("文档树比较结果, docDiffListNew: {}", GsonUtil.toJsonString(docDiffListNew));
             // 3.合并文档树
             mergeDocDiffs(docDiffListNew);
+            // 4.替换文档树
+            docTree = docTreeNew;
         } catch (Exception e) {
             log.error("文档树比较失败, e: {}", ExceptionUtils.getStackTrace(e));
         } finally {
